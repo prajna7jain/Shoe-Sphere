@@ -1,0 +1,535 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Jaro:opsz@6..72&family=Oswald:wght@200..700&family=Poppins&family=Roboto:ital,wght@0,100;0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+  background-color: #ffffff;
+  color: #000000;
+  transition: background-color 0.3s, color 0.3s;
+}
+/* Navbar */
+nav {
+  height: 50px;
+  width: 100%;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.logo img {
+  height: 60px;
+}
+
+.logo h3 {
+  font-family: "Oswald", serif;
+  margin-right: 10px;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+li {
+  list-style: none;
+  margin-right: 25px;
+  position: relative;
+}
+
+.left-content,
+.right-content {
+  display: flex;
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.left-content ul,
+.right-content ul {
+  display: flex;
+  align-items: center;
+}
+
+.right-content ul li i {
+  font-size: 1.4rem;
+}
+#cart i,
+#profile i {
+  padding: 5px;
+  transition: 5s ease-in-out;
+  &:hover {
+    border: 1px solid #000000;
+  }
+}
+.active {
+  border-bottom: 1px solid;
+}
+/* Dark and light mode  */
+
+.switch {
+  font-size: 17px;
+  position: relative;
+  display: inline-block;
+  width: 2.5em;
+  height: 1.3em;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  border: 2px solid #414141;
+  border-radius: 50px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 0.8rem;
+  width: 0.8rem;
+  left: 0.2em;
+  bottom: 0.1em;
+  background-color: white;
+  border-radius: inherit;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.switch input:checked + .slider {
+  box-shadow: 0 0 20px rgba(9, 117, 241, 0.8);
+  border: 2px solid #0974f1;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(1.2em);
+}
+
+/* linke hover  */
+.left-content ul li::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1px;
+  background-color: #000000;
+  transition: width 0.3s ease-in-out;
+}
+
+.left-content ul li:hover::after {
+  width: 100%;
+}
+
+.active {
+  border-bottom: 1px solid;
+}
+
+/* Hero session */
+.hero {
+  width: 100%;
+  height: 700px;
+  background: url(Images/hero.png);
+  background-position: center;
+  background-size: cover;
+  display: grid;
+  grid-template-columns: 60% 40%;
+  align-items: center;
+  color: white;
+  padding: 50px;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Hero right side content */
+
+.hero .right-side-hero {
+  display: flex;
+  flex-direction: column;
+  gap: 17px;
+  z-index: 100;
+}
+.hero h1 {
+  font-family: "Oswald", serif;
+  font-size: 3rem;
+}
+
+.hero h2 {
+  font-size: 2rem;
+}
+
+.hero p {
+  position: relative;
+  top: 80px;
+  font-weight: inherit;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 0;
+}
+
+.line1 {
+  animation: typing1 3s steps(40, end) forwards 2s;
+}
+
+.line2 {
+  animation: typing2 3s steps(40, end) forwards 5s;
+}
+
+.hero p.done {
+  border-right: none;
+}
+
+@keyframes typing1 {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
+}
+
+@keyframes typing2 {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
+}
+
+/* Hero left side content */
+.hero .left-side-hero {
+  z-index: 1000;
+  position: relative;
+  top: 150px;
+  left: 100px;
+}
+
+.left-side-hero button {
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin-right: 20px;
+  transition: 0.5s ease-in-out;
+  &:hover {
+    transform: translateY(-10px);
+  }
+}
+
+#shop-now {
+  background-color: greenyellow;
+  color: black;
+  font-weight: bold;
+  &:hover {
+    transform: translateY(-10px);
+  }
+}
+#sell-footware:hover {
+  background-color: #adb5bd;
+}
+
+/* Brand section */
+.nike,
+.adidas,
+.puma {
+  width: 25%;
+  height: 280px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-top: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.brands {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  padding: 10px;
+}
+
+.nike {
+  background: url(Images/Nike.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.adidas {
+  background: url(Images/Adidas.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.puma {
+  background: url(Images/Puma.jpg);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.brand-content {
+  position: absolute;
+  bottom: -100%;
+  width: 100%;
+  padding: 15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  font-size: 0.9rem;
+  text-align: center;
+  transition: bottom 0.8s ease-in-out;
+}
+
+.nike:hover .brand-content,
+.adidas:hover .brand-content,
+.puma:hover .brand-content {
+  bottom: 0;
+}
+
+.nike::before,
+.adidas::before,
+.puma::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.4s ease-in-out;
+}
+
+.nike:hover::before,
+.adidas:hover::before,
+.puma:hover::before {
+  background: rgba(79, 78, 78, 0.5);
+}
+
+/* servie section */
+.service {
+  width: 15%;
+  height: 200px;
+  padding: 10px;
+  box-shadow: 10px 10px 40px rgba(220, 217, 217, 0.5);
+  border-radius: 20px;
+}
+
+.services {
+  margin: 50px 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+}
+
+.img {
+  width: 100%;
+  height: 70%;
+}
+
+/* images and text for service section */
+.img-1 {
+  background: url(Images/free-shipping.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.img-2 {
+  background: url(Images/online-order.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.img-3 {
+  background: url(Images/happy-sell.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.img-4 {
+  background: url(Images/pramotion.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.img-5 {
+  background: url(Images/save-money.png);
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+/* Texts in service section */
+.service p {
+  margin-top: 16px;
+  margin-left: 37px;
+  font-size: 0.7rem;
+  width: max-content;
+  padding: 5px;
+  border-radius: 3px;
+}
+
+.s-1 p {background-color: #bfdbfe;}
+.s-2 p {background-color: #fecaca;}
+.s-3 p {background-color: #d8b4fe;}
+.s-4 p {background-color: #60a5fa;}
+.s-5 p {background-color: #bbf7d0;}
+
+/* Product section */
+#product-heading {
+  text-align: center;
+}
+
+/* Footer section */
+footer {
+  background-color: #000000;
+  color: white;
+  width: 100%;
+  height: 450px;
+  margin-top: 50px;
+  padding: 40px;
+  overflow-x: hidden;
+}
+.footer-con {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  margin-bottom: 50px;
+}
+footer ul li {
+  list-style: none;
+  color: #ced4da;
+}
+footer ul {
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+footer .about a {
+  text-decoration: none;
+  color: white;
+  &:hover {
+    color: #8f9091;
+  }
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo img {
+  width: 100px;
+}
+.footer-logo h1 {
+  font-family: "Oswald", serif;
+}
+
+.brand .explore {
+  display: flex;
+  gap: 15px;
+}
+.brand h3 {
+  /* text-align: center ; */
+  margin-bottom: 20px;
+}
+.brand .explore img {
+  width: 80px;
+  border: 1px solid white;
+  border-radius: 10px;
+  transition: 0.5s;
+  &:hover {
+    border-radius: 0;
+  }
+}
+
+footer p {
+  color: #ced4da;
+  text-align: center;
+  padding: 20px;
+  font-size: 0.8rem;
+}
+
+/* modes */
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Navbar */
+body.dark-mode nav {
+  background-color: #1f1f1f;
+}
+
+/* Links */
+body.dark-mode a {
+  color: #ffffff;
+}
+
+/* Footer */
+body.dark-mode footer {
+  background-color: #181818;
+}
+
+/* Brand section */
+body.dark-mode .nike,
+body.dark-mode .adidas,
+body.dark-mode .puma {
+  box-shadow: 10px 10px 20px rgba(49, 47, 47, 0.3);
+}
+
+.dark-mode .brand-content {
+  color: #000000;
+}
+body.dark-mode .service {
+  box-shadow: 10px 10px 20px rgba(49, 47, 47, 0.3);
+  color: #000000;
+}
+
+/*Product  */
+body.dark-mode .products {
+  background-color: #1e1e1e;
+  color: white;
+}
+body.dark-mode .new-arrivals-producs {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+body.dark-mode button {
+  background-color: #fff;
+  color: #000000;
+}
+
+.switch input:checked + .slider {
+  background-color: #0974f1;
+}
