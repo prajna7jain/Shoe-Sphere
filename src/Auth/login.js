@@ -79,7 +79,7 @@ function LogIn() {
     window.location.href = "profile/profile.html";
     localStorage.setItem("logIn", "Logged In");
 
-    // Also store userInfo for profile page
+    // store userInfo for profile page
     const user = userCredential.user;
     localStorage.setItem("userInfo", JSON.stringify({
       name: user.displayName || "User",
