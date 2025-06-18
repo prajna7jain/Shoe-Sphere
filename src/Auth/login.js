@@ -44,6 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 3000);
   }
 });
+
+
 //   Auth -> Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyAMpWy83cxekLoaAxpcgzxAwBSvwwVHuqU",
@@ -61,8 +63,8 @@ const auth = firebase.auth();
 const database = firebase.database();
 console.log(firebase);
 
-const logIn = document.getElementById("logIn");
 
+const logIn = document.getElementById("logIn");
 logIn.addEventListener("click", function () {
   LogIn();
 });
@@ -71,30 +73,31 @@ function LogIn() {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
   auth
-    .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      console.log("User signed in:", userCredential.user.email);
+  .signInWithEmailAndPassword(email, password)
+  .then((userCredential) => {
+    console.log("User signed in:", userCredential.user.email);
+    window.location.href = "profile/profile.html";
+    localStorage.setItem("logIn", "Logged In");
 
-      window.location.href = "profile/profile.html";
-      localStorage.setItem("logIn", "Logged In");
-    })
-    .catch(()=>{
-      const signInMethods = fetchSignInMethodsForEmail(auth, email);
-      console.log(signInMethods,"not login")
-    })
-    .catch(() => {
-      localStorage.setItem("logInMsg", "❌Invalid email or password.");
-    });
+    // Also store userInfo for profile page
+    const user = userCredential.user;
+    localStorage.setItem("userInfo", JSON.stringify({
+      name: user.displayName || "User",
+      email: user.email,
+    }));
+  })
+  .catch((error) => {
+    console.error("Login failed:", error.message);
+    localStorage.setItem("logInMsg", "❌ Invalid email or password.");
 
-  let message = localStorage.getItem("logInMsg");
+    const cartMsg = document.getElementById("cart-msg");
+    if (cartMsg) {
+      cartMsg.textContent = "❌ Invalid email or password.";
+      cartMsg.style.transform = "translateX(0px)";
+      setTimeout(() => {
+        cartMsg.style.transform = "translateX(380px)";
+      }, 3000);
+    }
+  });
 
-  if (message) {
-    document.getElementById("cart-msg").style.transform = "translateX(0px)";
-    document.getElementById("cart-msg").textContent = message;
-    localStorage.removeItem("logInMsg");
-
-    setTimeout(() => {
-      document.getElementById("cart-msg").style.transform = "translateX(380px)";
-    }, 3000);
-  }
 }

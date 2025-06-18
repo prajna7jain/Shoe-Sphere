@@ -44,6 +44,9 @@ const auth = firebase.auth();
 const database = firebase.database();
 console.log(firebase);
 
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
   let localData = localStorage.getItem("userInfo");
   let userInfo = JSON.parse(localData);
@@ -120,3 +123,4 @@ logout.addEventListener("click", () => {
 
   window.location.href = "../login.html";
 });
+

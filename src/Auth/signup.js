@@ -1,3 +1,5 @@
+
+
 document.addEventListener("DOMContentLoaded", function () {
   const toggleSwitch = document.querySelector(".switch input");
   const body = document.body;
@@ -7,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
     localStorage.setItem("theme", "dark");
     toggleSwitch.checked = true;
   }
+
   function disableDarkMode() {
     body.classList.remove("dark-mode");
     localStorage.setItem("theme", "light");
@@ -27,60 +30,66 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-//   Auth -> Firebase
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-auth.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.9.1/firebase-database.js";
 
+// Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyAGgWQ0JFmzv4xnN3_Vt5FPpMgJ62ivGPM",
-  authDomain: "trendfeet-1d83e.firebaseapp.com",
-  databaseURL: "https://trendfeet-1d83e-default-rtdb.firebaseio.com",
-  projectId: "trendfeet-1d83e",
-  storageBucket: "trendfeet-1d83e.firebasestorage.app",
-  messagingSenderId: "45676543220",
-  appId: "1:45676543220:web:63190f9fc4feed9e8272a1",
+  apiKey: "AIzaSyAMpWy83cxekLoaAxpcgzxAwBSvwwVHuqU",
+  authDomain: "shoesphere-fd438.firebaseapp.com",
+  databaseURL: "https://shoesphere-fd438-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "shoesphere-fd438",
+  storageBucket: "shoesphere-fd438.appspot.com",
+  messagingSenderId: "481493885560",
+  appId: "1:481493885560:web:d8c08fea6b6ec54517c38d",
+  measurementId: "G-9HMR2XWZ7G"
 };
 
-firebase.initializeApp(firebaseConfig);
-const database = firebase.database();
-console.log(firebase);
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
+
 
 // SignUP
 const signUpBtn = document.getElementById("signUpBtn");
 signUpBtn.addEventListener("click", () => signUp());
-
 function signUp() {
   let name = document.getElementById("name").value;
   let email = document.getElementById("email").value;
   let password = document.getElementById("password").value;
   let conPassword = document.getElementById("copass").value;
 
-  if (password != conPassword) {
+  if (password !== conPassword) {
     alert("Password Mismatch");
     return;
   }
-  auth
-    .createUserWithEmailAndPassword(email, password)
+
+  createUserWithEmailAndPassword(auth, email, password)
     .then((userAuth) => {
       const user = userAuth.user;
 
-      database.ref("users/" + user.uid).set({ email: user.email });
+      // Save user data to Realtime Database
+      return set(ref(database, "users/" + user.uid), {
+        name: name,
+        email: user.email
+      }).then(() => user);
+    
+       // return user for next .then()
+    })
+    .then((user) => {
+      localStorage.setItem("signInMsg", " Welcome! Log in to continue. ✅ ");
+      localStorage.setItem("userInfo", JSON.stringify({ name: name, email: email }));
       console.log("User signed up:", user.email);
+      console.log("data saved");
       window.location.href = "login.html";
     })
-    .then(() => {
-      localStorage.setItem("signInMsg", " Welcome! Log in to continue. ✅ ");
-    })
-    .then(() => {
-      let userData = {
-        name: name,
-        email: email,
-      };
-      localStorage.setItem("userInfo", JSON.stringify(userData));
-      console.log("data saved");
-    })
-
-    .catch((error) => console.error("Signup error:", error.message));
+    .catch((error) => {
+      console.error("Signup error:", error.message);
+      alert("Error: " + error.message);
+    });
 }
